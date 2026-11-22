@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
 
-    <title>OpenClaw</title>
+    <title>OpenCaptainClaw</title>
     <meta name="description" content="Reimplementation of Captain Claw (1997) platformer">
 
-    <meta property="og:title" content="OpenClaw project">
-    <meta property="og:description" content="OpenClaw open source project">
+    <meta property="og:title" content="OpenCaptainClaw project">
+    <meta property="og:description" content="OpenCaptainClaw open source project">
     <!--<meta property="og:image" content="preview.png">-->
 
     <!-- Change default viewport width here according to canvas width -->
@@ -200,7 +200,7 @@
         })(),
 
         dataFileDownloads: {
-            "openclaw.data": {
+            "opencaptainclaw.data": {
                 total: 0,
                 loaded: 0,
             }
@@ -208,7 +208,7 @@
         setStatus: function (text) {
             if (loadingElement) {
                 Module.canvas.style.display = "none";
-                var progress = (Module.dataFileDownloads["openclaw.data"].loaded / Module.dataFileDownloads["openclaw.data"].total * 100) | 0;
+                var progress = (Module.dataFileDownloads["opencaptainclaw.data"].loaded / Module.dataFileDownloads["opencaptainclaw.data"].total * 100) | 0;
                 if (progress < 100) {
                     loadingElement.innerHTML = "Game resources are downloading... " + (progress | 0) + "%";
                 } else {
@@ -226,7 +226,7 @@
         var script = document.createElement("script");
         script.async = !0;
         script.type = "text/javascript";
-        script.src = "openclaw.js";
+        script.src = "opencaptainclaw.js";
         script.onerror = function (t) {
             console.error("Script Error");
             console.error(t);

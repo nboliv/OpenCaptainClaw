@@ -1,7 +1,7 @@
 name: "CodeQL config"
 
 # Vendored upstream code is not maintained here; analyzing it only adds noise
-# and minutes. First-party code (OpenClaw/, libwap/) is scanned.
+# and minutes. First-party code (OpenCaptainClaw/, libwap/) is scanned.
 paths-ignore:
   - Box2D
   - ThirdParty

@@ -7,7 +7,7 @@ option(Emscripten "Build as WASM" OFF)
 option(Extern_Config "Do not embed config file" ON)
 set(EMSCRIPTEN_PATH "CHANGE ME PLEASE!!!/emsdk")
 
-project(OpenClaw)
+project(OpenCaptainClaw)
 
 #if(NOT CMAKE_BUILD_TYPE)
 #  set(CMAKE_BUILD_TYPE Release)
@@ -55,12 +55,12 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ../android/libs/armeabi-v7a)
 # Cmake target definitions
 if(Android)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DANDROID")
-    add_library(openclaw SHARED "")
+    add_library(opencaptainclaw SHARED "")
 else (Android)
-    add_executable(openclaw "")
+    add_executable(opencaptainclaw "")
 endif(Android)
 
-add_subdirectory(OpenClaw)
+add_subdirectory(OpenCaptainClaw)
 
 # Linker settings
 list(APPEND TARGET_LIBS
@@ -74,7 +74,7 @@ if (Emscripten)
     else (Extern_Config)
         set(CONFIG_PRELOAD_FILE "--preload-file ../Build_Release/config.xml@config.xml")
     endif (Extern_Config)
-    set_target_properties(openclaw PROPERTIES LINK_FLAGS "-s FETCH -s WASM=1 -s BINARYEN_METHOD='native-wasm' -s EXPORTED_FUNCTIONS='[_main]' -s USE_SDL=2 -s USE_SDL_IMAGE=2 -s SDL2_IMAGE_FORMATS='[\"pcx\",\"png\",\"tga\"]' -s USE_SDL_TTF=2 -s USE_SDL_GFX=2 -s ASYNCIFY=1 -s TOTAL_MEMORY=268435456 ${CONFIG_PRELOAD_FILE} --preload-file ../Build_Release/CLAW.REZ@CLAW.REZ --preload-file ../Build_Release/ASSETS.ZIP@ASSETS.ZIP --preload-file ../Build_Release/console02.tga@console02.tga --preload-file ../Build_Release/clacon.ttf@clacon.ttf")
+    set_target_properties(opencaptainclaw PROPERTIES LINK_FLAGS "-s FETCH -s WASM=1 -s BINARYEN_METHOD='native-wasm' -s EXPORTED_FUNCTIONS='[_main]' -s USE_SDL=2 -s USE_SDL_IMAGE=2 -s SDL2_IMAGE_FORMATS='[\"pcx\",\"png\",\"tga\"]' -s USE_SDL_TTF=2 -s USE_SDL_GFX=2 -s ASYNCIFY=1 -s TOTAL_MEMORY=268435456 ${CONFIG_PRELOAD_FILE} --preload-file ../Build_Release/CLAW.REZ@CLAW.REZ --preload-file ../Build_Release/ASSETS.ZIP@ASSETS.ZIP --preload-file ../Build_Release/console02.tga@console02.tga --preload-file ../Build_Release/clacon.ttf@clacon.ttf")
 else (Emscripten)
     list(APPEND TARGET_LIBS
             SDL2
@@ -105,4 +105,4 @@ else (Emscripten)
     endif (Android)
 endif (Emscripten)
 
-target_link_libraries(openclaw ${TARGET_LIBS})
+target_link_libraries(opencaptainclaw ${TARGET_LIBS})

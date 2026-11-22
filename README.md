@@ -1,4 +1,4 @@
-# OpenClaw - Captain Claw (1997) reimplementation
+# OpenCaptainClaw - Captain Claw (1997) reimplementation
 
  - This project is a multiplatform C++ reimplementation of original Captain Claw (1997) platformer game
  - Whole codebase was written from scratch
@@ -6,7 +6,7 @@
 
 **Level 1 youtube playthrough:**
 
-[![OpenClaw - Level 1](https://img.youtube.com/vi/ikXQNV_aw68/0.jpg)](https://www.youtube.com/watch?v=ikXQNV_aw68)
+[![OpenCaptainClaw - Level 1](https://img.youtube.com/vi/ikXQNV_aw68/0.jpg)](https://www.youtube.com/watch?v=ikXQNV_aw68)
 
 # Build status
 
@@ -37,7 +37,7 @@ Zip all content inside `Build_Release/ASSETS` directory to `ASSETS.ZIP` file.
     cd build
     
     cmake -G "Visual Studio 15 2017" ..
-    msbuild OpenClaw.sln
+    msbuild OpenCaptainClaw.sln
     # Or
     cmake -G "NMake Makefiles" ..
     nmake
@@ -54,8 +54,8 @@ Zip all content inside `Build_Release/ASSETS` directory to `ASSETS.ZIP` file.
   Edit root `CMakeLists.txt` file to change this behaviour.
   
   **Compilation:**
-  - `git clone https://github.com/pjasicek/OpenClaw.git`
-  - CLAW.REZ iz required from original game in the OpenClaw/Build_Release folder
+  - `git clone https://github.com/nboliv/OpenCaptainClaw.git`
+  - CLAW.REZ iz required from original game in the OpenCaptainClaw/Build_Release folder
   - Use `cmake` to build fresh Makefile. There is no need specific arguments.
   - `make` (it's going to use all threads to compile, edit Makefile in Build_Release folder to whatever number of simultaneous threads you want it on your machine to run)
 
@@ -97,12 +97,12 @@ Zip all content inside `Build_Release/ASSETS` directory to `ASSETS.ZIP` file.
   **Run:**
   
   You will need web server to run compiled project. There are 2 options:
-  - You can upload `openclaw.html`, `openclaw.js`, `openclaw.wasm` and `openclaw.data` (and `config.xml` if you build the project without `-DExtern_Config=0` parameter) files from `Build_Release` directory to any web server.
+  - You can upload `opencaptainclaw.html`, `opencaptainclaw.js`, `opencaptainclaw.wasm` and `opencaptainclaw.data` (and `config.xml` if you build the project without `-DExtern_Config=0` parameter) files from `Build_Release` directory to any web server.
   - Or run Python server:
     ```shell script
     cd Build_Release
     python -m SimpleHTTPServer 8080
-    # Go to http://localhost:8080/openclaw.html
+    # Go to http://localhost:8080/opencaptainclaw.html
     ``` 
   
   **Remarks:**
@@ -135,6 +135,6 @@ Zip all content inside `Build_Release/ASSETS` directory to `ASSETS.ZIP` file.
   
   **Then run it like this:**
   
-  `~/OpenClaw/Build_Release$ mono ClawLauncher.exe`
+  `~/OpenCaptainClaw/Build_Release$ mono ClawLauncher.exe`
  
 -  **TODO** - add screenshots

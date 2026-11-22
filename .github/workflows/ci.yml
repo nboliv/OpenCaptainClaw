@@ -94,7 +94,7 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      # CMake instead of OpenClaw.sln: the solution still targets the v141
+      # CMake instead of OpenCaptainClaw.sln: the solution still targets the v141
       # toolset and SDK 10.0.16299, neither of which ships on modern runners.
       # -A Win32 matches the 32-bit SDL2 import libs in ThirdParty/SDL2.
       - name: Configure

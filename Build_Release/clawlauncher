@@ -1,10 +1,10 @@
 #!/bin/sh
 
-EXPECTED_CONFIG_DIR=~/.config/openclaw/
+EXPECTED_CONFIG_DIR=~/.config/opencaptainclaw/
 EXPECTED_CONFIG_PATH=$EXPECTED_CONFIG_DIR/config.xml
 EXPECTED_SAVES_PATH=$EXPECTED_CONFIG_DIR/SAVES.XML
-INSTALLED_CONFIG_PATH=/usr/share/openclaw/config.xml
-INSTALLED_SAVES_PATH=/usr/share/openclaw/SAVES.XML
+INSTALLED_CONFIG_PATH=/usr/share/opencaptainclaw/config.xml
+INSTALLED_SAVES_PATH=/usr/share/opencaptainclaw/SAVES.XML
 
 if [ -e "config.xml" ]
 then
@@ -19,7 +19,7 @@ then
 		cp $INSTALLED_CONFIG_PATH $EXPECTED_CONFIG_PATH
 		echo "[INFO] OK"
 	else
-		echo "[ERROR] $INSTALLED_CONFIG_PATH does not exist. Is openclaw deb package installed ?"
+		echo "[ERROR] $INSTALLED_CONFIG_PATH does not exist. Is opencaptainclaw deb package installed ?"
 	fi
 	if [ ! -e $EXPECTED_SAVES_PATH ]
 	then
@@ -31,7 +31,7 @@ then
 			cp $INSTALLED_SAVES_PATH $EXPECTED_SAVES_PATH
 			echo "[INFO] OK"
 		else
-			echo "[ERROR] $INSTALLED_SAVES_PATH does not exist. Is openclaw deb package installed ?"
+			echo "[ERROR] $INSTALLED_SAVES_PATH does not exist. Is opencaptainclaw deb package installed ?"
 		fi
 	fi
 fi
