@@ -1,4 +1,4 @@
-# OpenClaw Roadmap
+# OpenCaptainClaw Roadmap
 
 Fork of [pjasicek/OpenClaw](https://github.com/pjasicek/OpenClaw). Goal: complete
 the game using the original assets from the physical CD/DVD (CLAW.REZ, MOVIES,
@@ -12,8 +12,8 @@ Current branch for recent work: `cutscenes-video`. Upstream: `upstream` remote.
 ```sh
 cmake -S . -B build -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
       -DCMAKE_EXE_LINKER_FLAGS="-L/opt/homebrew/lib"
-cmake --build build -j 8        # binary lands in Build_Release/openclaw
-cd Build_Release && ./openclaw
+cmake --build build -j 8        # binary lands in Build_Release/opencaptainclaw
+cd Build_Release && ./opencaptainclaw
 ```
 
 - ffmpeg is a runtime dependency (Homebrew).
@@ -116,13 +116,17 @@ cd Build_Release && ./openclaw
 
 ### Display on macOS
 
-- Double-click launcher: `/Applications/OpenClaw.app` (local, gitignored) —
+- Double-click launcher: `/Applications/OpenCaptainClaw.app` (local, gitignored) —
   a minimal bundle (script + Info.plist + icns converted from
   `ClawLauncher/launcher_icon.ico`). The script runs the game binary with
   `Build_Release` as the working directory: if the bundle sits inside
   `Build_Release` it uses the sibling binary, otherwise it falls back to
-  the built checkout at `~/vibe-coding-projects/OpenClaw/Build_Release`.
-  Log at `/tmp/openclaw_last.log`. Regenerate the icns from the .ico if
+  `~/vibe-coding-projects/OpenCaptainClaw/Build_Release`, then to
+  `~/vibe-coding-projects/OpenClaw/Build_Release` and
+  `~/Games/OpenClaw/Build_Release` (the two dirs kept their pre-rename
+  names because git worktrees point into the first one). `opencaptainclaw`
+  wins over `openclaw` in every dir, so a half-renamed install still
+  starts the renamed build. Log at `/tmp/opencaptainclaw_last.log`. Regenerate the icns from the .ico if
   rebuilding the bundle. The fork's C# `ClawLauncher/` is Windows-only
   (WinForms); the original CD's `AUTORUN.EXE` is a 1997 Windows binary.
 - Fullscreen works and is on by default: `IsFullscreenDesktop=true` in

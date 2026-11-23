@@ -16,5 +16,5 @@ rm -f ASSETS.ZIP
 (cd ASSETS && zip -r ../ASSETS.ZIP .)
 
 echo "Run ..."
-cp openclaw OpenClaw
-./OpenClaw
+cp opencaptainclaw OpenCaptainClaw
+./OpenCaptainClaw

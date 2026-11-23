@@ -3,10 +3,10 @@
 PROJECT_ROOT=..
 BINARY_BUILD_DIR=$PROJECT_ROOT/Build_Release
 
-TARGET_TOPDIR=/tmp/openclaw
+TARGET_TOPDIR=/tmp/opencaptainclaw
 TARGET_DIR=$TARGET_TOPDIR/BUILDROOT
 TARGET_BINARY_DIR=$TARGET_DIR/usr/bin
-TARGET_ASSETS_DIR=$TARGET_DIR/usr/share/openclaw
+TARGET_ASSETS_DIR=$TARGET_DIR/usr/share/opencaptainclaw
 
 function ensure_exists 
 {
@@ -17,7 +17,7 @@ function ensure_exists
 	fi
 }
 
-ensure_exists $BINARY_BUILD_DIR/openclaw
+ensure_exists $BINARY_BUILD_DIR/opencaptainclaw
 ensure_exists $BINARY_BUILD_DIR/CLAW.REZ
 ensure_exists $BINARY_BUILD_DIR/ASSETS.ZIP
 ensure_exists $BINARY_BUILD_DIR/console02.tga
@@ -30,7 +30,7 @@ ensure_exists $BINARY_BUILD_DIR/ClawLauncher.exe
 mkdir -p $TARGET_BINARY_DIR
 mkdir -p $TARGET_ASSETS_DIR
 
-cp $BINARY_BUILD_DIR/openclaw $TARGET_BINARY_DIR
+cp $BINARY_BUILD_DIR/opencaptainclaw $TARGET_BINARY_DIR
 cp $BINARY_BUILD_DIR/CLAW.REZ $TARGET_ASSETS_DIR
 cp $BINARY_BUILD_DIR/ASSETS.ZIP $TARGET_ASSETS_DIR
 cp $BINARY_BUILD_DIR/console02.tga $TARGET_ASSETS_DIR
@@ -40,7 +40,7 @@ cp $BINARY_BUILD_DIR/config_linux_release.xml $TARGET_ASSETS_DIR/config.xml
 cp $BINARY_BUILD_DIR/ClawLauncher.exe $TARGET_BINARY_DIR
 cp $BINARY_BUILD_DIR/clawlauncher $TARGET_BINARY_DIR
 
-echo "rpmbuild --define "_topdir $TARGET_TOPDIR" --define "buildroot $TARGET_DIR" -ba openclaw.spec"
-rpmbuild --define "_topdir $TARGET_TOPDIR" --define "buildroot $TARGET_DIR" -ba openclaw.spec
+echo "rpmbuild --define "_topdir $TARGET_TOPDIR" --define "buildroot $TARGET_DIR" -ba opencaptainclaw.spec"
+rpmbuild --define "_topdir $TARGET_TOPDIR" --define "buildroot $TARGET_DIR" -ba opencaptainclaw.spec
 
 cp $TARGET_TOPDIR/RPMS/*/*.rpm .

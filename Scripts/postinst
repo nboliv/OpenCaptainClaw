@@ -1,5 +1,5 @@
 #!/bin/sh
 
-mkdir -p ~/.config/openclaw
-cp /usr/share/openclaw/config.xml ~/.config/openclaw
-cp /usr/share/openclaw/SAVES.XML ~/.config/openclaw
+mkdir -p ~/.config/opencaptainclaw
+cp /usr/share/opencaptainclaw/config.xml ~/.config/opencaptainclaw
+cp /usr/share/opencaptainclaw/SAVES.XML ~/.config/opencaptainclaw

@@ -53,7 +53,7 @@ namespace ClawLauncher
 
             if (IsLinux)
             {
-                ClawExecutablePath = clawLauncherDir + "/" + "openclaw";
+                ClawExecutablePath = clawLauncherDir + "/" + "opencaptainclaw";
 
                 if (File.Exists(clawLauncherDir + "/config.xml"))
                 {
@@ -61,19 +61,19 @@ namespace ClawLauncher
                 }
                 else
                 {
-                    ClawConfigPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "/.config/openclaw/config.xml";
+                    ClawConfigPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "/.config/opencaptainclaw/config.xml";
                 }
             }
             else
             {
-                ClawExecutablePath = clawLauncherDir + "/" + "OpenClaw.exe";
+                ClawExecutablePath = clawLauncherDir + "/" + "OpenCaptainClaw.exe";
                 ClawConfigPath = clawLauncherDir + "/" + "config.xml";
             }
 
             if (!File.Exists(ClawExecutablePath))
             {
 
-                MessageBox.Show("Could not locate OpenClaw binary - it has to be in the same folder as is this Launcher.\nExpected location:\n\n" + ClawExecutablePath, "OpenClaw bin not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Could not locate OpenCaptainClaw binary - it has to be in the same folder as is this Launcher.\nExpected location:\n\n" + ClawExecutablePath, "OpenCaptainClaw bin not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 //Application.Exit();
                 //Close();
@@ -82,7 +82,7 @@ namespace ClawLauncher
 
             if (!File.Exists(ClawConfigPath))
             {
-                MessageBox.Show("Could not locate OpenClaw config.xml.\nExpected location:\n\n" + ClawConfigPath, "OpenClaw config.xml not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Could not locate OpenCaptainClaw config.xml.\nExpected location:\n\n" + ClawConfigPath, "OpenCaptainClaw config.xml not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 //Application.Exit();
                 //Close();

@@ -14,7 +14,7 @@ clean:
 	rm -f ASSETS.ZIP
 
 start:
-	./openclaw
+	./opencaptainclaw
 
 build:
 	cd .. && mkdir -p build && cd build && cmake .. && make

@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/pjasi/github/OpenClaw/Box2D/Box2D
+# Install script for directory: C:/Users/pjasi/github/OpenCaptainClaw/Box2D/Box2D
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
