@@ -6,7 +6,12 @@
 #ifdef _WIN32
 #include <windows.h>
 #include <fcntl.h>
-#include <io.h>
+
+// libwap/ is on the include path and NTFS ignores case, so <io.h> resolves to
+// libwap/IO.h instead of the CRT header. Declare the two entry points used
+// below rather than depend on that include.
+extern "C" int _open_osfhandle(intptr_t osfhandle, int flags);
+extern "C" int _close(int fd);
 #else
 #include <sys/types.h>
 #include <sys/wait.h>
