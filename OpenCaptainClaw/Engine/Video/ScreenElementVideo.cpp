@@ -1,7 +1,5 @@
 #include "ScreenElementVideo.h"
 
-#include <cstdlib>
-#include <cstring>
 #include <string>
 #include <vector>
 #include <sys/stat.h>
@@ -9,12 +7,7 @@
 #include "../Audio/Audio.h"
 #include "../GameApp/BaseGameApp.h"
 #include "../Logger/Logger.h"
-
-#ifdef _WIN32
-// MSVC only exposes the POSIX pipe calls with an underscore prefix.
-#define popen _popen
-#define pclose _pclose
-#endif
+#include "VideoProcess.h"
 
 // All shipped cutscenes are 720x480 MPEG-2 at 29.97 fps. We let ffmpeg do the
 // scaling so the frame size is known up front and no probing is needed.
@@ -22,54 +15,10 @@ static const int kVideoWidth = 720;
 static const int kVideoHeight = 480;
 static const uint32 kFrameDurationMs = 33;
 
-static std::string QuotePath(const std::string& path)
-{
-    std::string quoted = "'";
-    for (char c : path)
-    {
-        if (c == '\'')
-        {
-            quoted += "'\\''";
-        }
-        else
-        {
-            quoted += c;
-        }
-    }
-    quoted += "'";
-    return quoted;
-}
-
 static bool FileExists(const std::string& path)
 {
     struct stat st;
     return stat(path.c_str(), &st) == 0;
-}
-
-// ffmpeg is not guaranteed to be on PATH when the game is launched from Finder.
-static std::string FindFfmpeg()
-{
-    static const char* candidates[] = {
-        "ffmpeg",
-        "/opt/homebrew/bin/ffmpeg",
-        "/usr/local/bin/ffmpeg",
-        "/usr/bin/ffmpeg",
-    };
-
-    for (const char* candidate : candidates)
-    {
-        if (strchr(candidate, '/') == nullptr)
-        {
-            // Bare name: let popen/system resolve it through PATH.
-            return candidate;
-        }
-        if (FileExists(candidate))
-        {
-            return candidate;
-        }
-    }
-
-    return "";
 }
 
 bool ScreenElementVideo::IsAvailable()
@@ -80,7 +29,6 @@ bool ScreenElementVideo::IsAvailable()
 ScreenElementVideo::ScreenElementVideo(SDL_Renderer* pRenderer, const std::string& videoPath)
     : m_pRenderer(pRenderer),
       m_VideoPath(videoPath),
-      m_pPipe(nullptr),
       m_pTexture(nullptr),
       m_pMusic(nullptr),
       m_Width(kVideoWidth),
@@ -127,13 +75,19 @@ bool ScreenElementVideo::OpenVideo()
         return false;
     }
 
-    std::string command = ffmpeg +
-        " -v error -i " + QuotePath(m_VideoPath) +
-        " -an -vf scale=" + std::to_string(m_Width) + ":" + std::to_string(m_Height) +
-        " -vsync 0 -f rawvideo -pix_fmt rgb24 -";
+    const std::vector<std::string> args = {
+        ffmpeg,
+        "-v", "error",
+        "-i", m_VideoPath,
+        "-an",
+        "-vf", "scale=" + std::to_string(m_Width) + ":" + std::to_string(m_Height),
+        "-vsync", "0",
+        "-f", "rawvideo",
+        "-pix_fmt", "rgb24",
+        "-",
+    };
 
-    m_pPipe = popen(command.c_str(), "r");
-    if (!m_pPipe)
+    if (!m_Process.Start(args, true))
     {
         LOG_ERROR("Could not start ffmpeg for: " + m_VideoPath);
         return false;
@@ -145,14 +99,14 @@ bool ScreenElementVideo::OpenVideo()
 
 bool ScreenElementVideo::DecodeNextFrame()
 {
-    if (!m_pPipe || !m_pTexture)
+    if (!m_Process.Stream() || !m_pTexture)
     {
         return false;
     }
 
     const size_t frameSize = (size_t)m_Width * (size_t)m_Height * 3;
     std::vector<char> buffer(frameSize);
-    if (fread(buffer.data(), 1, frameSize, m_pPipe) != frameSize)
+    if (fread(buffer.data(), 1, frameSize, m_Process.Stream()) != frameSize)
     {
         m_IsFinished = true;
         return false;
@@ -181,10 +135,19 @@ void ScreenElementVideo::StartAudio()
             return;
         }
 
-        const std::string command = ffmpeg +
-            " -v error -y -i " + QuotePath(m_VideoPath) +
-            " -vn -ac 2 -ar 44100 " + QuotePath(wavPath);
-        if (system(command.c_str()) != 0 || !FileExists(wavPath))
+        FfmpegProcess extractor;
+        const std::vector<std::string> args = {
+            ffmpeg,
+            "-v", "error",
+            "-y",
+            "-i", m_VideoPath,
+            "-vn",
+            "-ac", "2",
+            "-ar", "44100",
+            wavPath,
+        };
+
+        if (!extractor.Start(args, false) || extractor.WaitAndClose() != 0 || !FileExists(wavPath))
         {
             LOG_WARNING("Could not extract audio from: " + m_VideoPath);
             return;
@@ -275,11 +238,7 @@ void ScreenElementVideo::VOnLostDevice()
 
 void ScreenElementVideo::Stop()
 {
-    if (m_pPipe)
-    {
-        pclose(m_pPipe);
-        m_pPipe = nullptr;
-    }
+    m_Process.WaitAndClose();
 
     if (m_pMusic)
     {

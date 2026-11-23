@@ -1,13 +1,13 @@
 #ifndef __SCREEN_ELEMENT_VIDEO_H__
 #define __SCREEN_ELEMENT_VIDEO_H__
 
-#include <cstdio>
 #include <string>
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_mixer.h>
 
 #include "../Interfaces.h"
+#include "VideoProcess.h"
 
 // Plays one of the original game's DVD cutscenes (MPEG-2 .VOB files).
 //
@@ -45,7 +45,7 @@ private:
 
     SDL_Renderer* m_pRenderer;
     std::string m_VideoPath;
-    FILE* m_pPipe;
+    FfmpegProcess m_Process;
     SDL_Texture* m_pTexture;
     Mix_Music* m_pMusic;
     int m_Width;
